@@ -39,10 +39,16 @@
             this.txtbx_max = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.lbl_min_value = new System.Windows.Forms.Label();
             this.btn_reset = new System.Windows.Forms.Button();
-            this.lbl_max_value = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtbx_num_points = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtbx_overall_points = new System.Windows.Forms.TextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // chart1
@@ -62,13 +68,13 @@
             this.chart1.Size = new System.Drawing.Size(776, 365);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
-            this.chart1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseDown);
+            this.chart1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseUp);
             // 
             // btn_exit
             // 
-            this.btn_exit.Location = new System.Drawing.Point(679, 398);
+            this.btn_exit.Location = new System.Drawing.Point(679, 383);
             this.btn_exit.Name = "btn_exit";
-            this.btn_exit.Size = new System.Drawing.Size(108, 38);
+            this.btn_exit.Size = new System.Drawing.Size(108, 87);
             this.btn_exit.TabIndex = 1;
             this.btn_exit.Text = "Exit";
             this.btn_exit.UseVisualStyleBackColor = true;
@@ -80,15 +86,15 @@
             this.btn_fill.Name = "btn_fill";
             this.btn_fill.Size = new System.Drawing.Size(108, 38);
             this.btn_fill.TabIndex = 2;
-            this.btn_fill.Text = "Fill";
+            this.btn_fill.Text = "Refill";
             this.btn_fill.UseVisualStyleBackColor = true;
             this.btn_fill.Click += new System.EventHandler(this.btn_fill_Click);
             // 
             // btn_zoom
             // 
-            this.btn_zoom.Location = new System.Drawing.Point(246, 398);
+            this.btn_zoom.Location = new System.Drawing.Point(12, 11);
             this.btn_zoom.Name = "btn_zoom";
-            this.btn_zoom.Size = new System.Drawing.Size(108, 38);
+            this.btn_zoom.Size = new System.Drawing.Size(79, 38);
             this.btn_zoom.TabIndex = 3;
             this.btn_zoom.Text = "Show";
             this.btn_zoom.UseVisualStyleBackColor = true;
@@ -96,7 +102,8 @@
             // 
             // txtbx_min
             // 
-            this.txtbx_min.Location = new System.Drawing.Point(360, 406);
+            this.txtbx_min.Location = new System.Drawing.Point(97, 19);
+            this.txtbx_min.MaxLength = 4;
             this.txtbx_min.Name = "txtbx_min";
             this.txtbx_min.Size = new System.Drawing.Size(67, 22);
             this.txtbx_min.TabIndex = 4;
@@ -105,7 +112,8 @@
             // 
             // txtbx_max
             // 
-            this.txtbx_max.Location = new System.Drawing.Point(459, 406);
+            this.txtbx_max.Location = new System.Drawing.Point(196, 19);
+            this.txtbx_max.MaxLength = 4;
             this.txtbx_max.Name = "txtbx_max";
             this.txtbx_max.Size = new System.Drawing.Size(67, 22);
             this.txtbx_max.TabIndex = 5;
@@ -115,7 +123,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(433, 409);
+            this.label1.Location = new System.Drawing.Point(170, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(20, 17);
             this.label1.TabIndex = 6;
@@ -124,20 +132,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(314, 444);
+            this.label2.Location = new System.Drawing.Point(55, 60);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(176, 17);
             this.label2.TabIndex = 7;
             this.label2.Text = "Draw with mouse to ZOOM";
-            // 
-            // lbl_min_value
-            // 
-            this.lbl_min_value.AutoSize = true;
-            this.lbl_min_value.Location = new System.Drawing.Point(676, 453);
-            this.lbl_min_value.Name = "lbl_min_value";
-            this.lbl_min_value.Size = new System.Drawing.Size(42, 17);
-            this.lbl_min_value.TabIndex = 8;
-            this.lbl_min_value.Text = "value";
             // 
             // btn_reset
             // 
@@ -149,36 +148,93 @@
             this.btn_reset.UseVisualStyleBackColor = true;
             this.btn_reset.Click += new System.EventHandler(this.btn_fill_Click);
             // 
-            // lbl_max_value
+            // groupBox1
             // 
-            this.lbl_max_value.AutoSize = true;
-            this.lbl_max_value.Location = new System.Drawing.Point(746, 453);
-            this.lbl_max_value.Name = "lbl_max_value";
-            this.lbl_max_value.Size = new System.Drawing.Size(42, 17);
-            this.lbl_max_value.TabIndex = 10;
-            this.lbl_max_value.Text = "value";
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.txtbx_max);
+            this.groupBox1.Controls.Add(this.txtbx_min);
+            this.groupBox1.Controls.Add(this.btn_zoom);
+            this.groupBox1.Location = new System.Drawing.Point(155, 383);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(275, 87);
+            this.groupBox1.TabIndex = 10;
+            this.groupBox1.TabStop = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(2, 25);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(98, 17);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "# x-axis Points";
+            // 
+            // txtbx_num_points
+            // 
+            this.txtbx_num_points.Location = new System.Drawing.Point(117, 22);
+            this.txtbx_num_points.MaxLength = 4;
+            this.txtbx_num_points.Name = "txtbx_num_points";
+            this.txtbx_num_points.Size = new System.Drawing.Size(67, 22);
+            this.txtbx_num_points.TabIndex = 8;
+            this.txtbx_num_points.Text = "100";
+            this.txtbx_num_points.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(2, 53);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(108, 17);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "# Overall Points";
+            // 
+            // txtbx_overall_points
+            // 
+            this.txtbx_overall_points.Location = new System.Drawing.Point(117, 50);
+            this.txtbx_overall_points.MaxLength = 4;
+            this.txtbx_overall_points.Name = "txtbx_overall_points";
+            this.txtbx_overall_points.Size = new System.Drawing.Size(67, 22);
+            this.txtbx_overall_points.TabIndex = 11;
+            this.txtbx_overall_points.Text = "3000";
+            this.txtbx_overall_points.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.txtbx_overall_points);
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.txtbx_num_points);
+            this.groupBox2.Location = new System.Drawing.Point(453, 388);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(193, 86);
+            this.groupBox2.TabIndex = 13;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "x-Axis points";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 479);
-            this.Controls.Add(this.lbl_max_value);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btn_reset);
-            this.Controls.Add(this.lbl_min_value);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtbx_max);
-            this.Controls.Add(this.txtbx_min);
-            this.Controls.Add(this.btn_zoom);
             this.Controls.Add(this.btn_fill);
             this.Controls.Add(this.btn_exit);
             this.Controls.Add(this.chart1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form1";
             this.Text = "Chart Test";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -192,9 +248,13 @@
         private System.Windows.Forms.TextBox txtbx_max;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label lbl_min_value;
         private System.Windows.Forms.Button btn_reset;
-        private System.Windows.Forms.Label lbl_max_value;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtbx_num_points;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtbx_overall_points;
+        private System.Windows.Forms.GroupBox groupBox2;
     }
 }
 

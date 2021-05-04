@@ -12,6 +12,11 @@ namespace scrollbar_graph
             InitializeComponent();
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            FillChart();
+        }
+
         private void btn_exit_Click(object sender, EventArgs e)
         {
             Close();
@@ -19,27 +24,33 @@ namespace scrollbar_graph
 
         private void btn_fill_Click(object sender, EventArgs e)
         {
-            int blockSize = 100; //number of points in x-axis
+            FillChart();
+        }
 
-            // generates random data (i.e. 30 * blockSize random numbers)
+        private void FillChart()
+        {
+            int blockSize = int.Parse(txtbx_num_points.Text); //number of points in x-axis
+
+            // generates random data (i.e. numBlocks * blockSize random numbers)
             Random rand = new Random();
-            var valuesArray = Enumerable.Range(0, blockSize * 30).Select(x => rand.Next(1, 10)).ToArray();
+            var valuesArray = Enumerable.Range(0, int.Parse(txtbx_overall_points.Text)).Select(x => rand.Next(1, 10)).ToArray();
 
             // clear the chart
             chart1.Series.Clear();
 
             Series series = chart1.Series.Add("");
-            ChartArea ca = chart1.ChartAreas[series.ChartArea];  // get hold of chart
+            ChartArea ca = chart1.ChartAreas[series.ChartArea]; // get hold of chart
 
             //type of chart
-            series.ChartType = SeriesChartType.FastLine;  //not sure why I need this but if not I get bar chart
+            series.ChartType = SeriesChartType.FastLine; //not sure why I need this but if not I get bar chart
 
-
+            
             //Populate with the random data we made
             for (int i = 0; i < valuesArray.Length; i++)
+            {
                 series.Points.AddXY(i, valuesArray[i]);
+            }
             
-
             // set view range to [0,max]
             ca.AxisX.Minimum = 0;
             ca.AxisX.Maximum = valuesArray.Length;
@@ -49,11 +60,11 @@ namespace scrollbar_graph
             ca.CursorX.AutoScroll = true;
             ca.CursorX.IsUserSelectionEnabled = true; //adds reset button on left
 
+
             // Zoom to first 100 x-axis points
             ca.AxisX.ScaleView.SizeType = DateTimeIntervalType.Number;
-            int position = 0;
-            int size = blockSize; //adjust this to show how many are first shown
-            ca.AxisX.ScaleView.Zoom(position, size);
+            ca.AxisX.ScaleView.Zoom(0, blockSize-1);
+
 
             // We show the reset button on left of the scroll bars but if you want to not show it then you can
             // disable it as shown commented out below 
@@ -64,30 +75,35 @@ namespace scrollbar_graph
 
             chart1.Legends.Clear(); //remove all legends
 
+            txtbx_min.Text = "0";
+            txtbx_max.Text = blockSize.ToString();
+            
             GC.Collect(); //Cleanup in case of memory leak.
         }
 
         private void btn_zoom_Click(object sender, EventArgs e)
         {
-            double min_val = double.Parse(txtbx_min.Text) + 1; //Zero based
-            double max_val = double.Parse(txtbx_max.Text) + 1; //Zero based
+            double min_val = double.Parse(txtbx_min.Text); //Zero based
+            double max_val = double.Parse(txtbx_max.Text); //Zero based
 
-
-            ChartArea ca = chart1.ChartAreas[0];
+           ChartArea ca = chart1.ChartAreas[0];
 
             // Just putting Min and Max in order in case user added incorrectly
-            ca.AxisX.ScaleView.Zoom(Math.Min(min_val, max_val), Math.Max(min_val, max_val));
+            ca.AxisX.ScaleView.Zoom((Math.Min(min_val, max_val)+1), (Math.Max(min_val, max_val)-1));
+
+            txtbx_min.Text = (Math.Min(min_val, max_val)).ToString();
+            txtbx_max.Text = (Math.Max(min_val, max_val)).ToString();
+
             GC.Collect();
         }
 
-        private void chart1_MouseDown(object sender, MouseEventArgs e)
+
+        private void chart1_MouseUp(object sender, MouseEventArgs e)
         {
-            ChartArea ca = chart1.ChartAreas[0];
+            Axis ax = chart1.ChartAreas[0].AxisX;
 
-            lbl_min_value.Text = ca.AxisX.Minimum.ToString();
-            lbl_max_value.Text = ca.AxisX.Maximum.ToString();
-
-            // lbl_min_value.Text = e.X.ToString();
+            txtbx_min.Text = ((ax.ScaleView.ViewMinimum)+1).ToString();
+            txtbx_max.Text = ((ax.ScaleView.ViewMaximum)-1).ToString();
         }
     }
 }
